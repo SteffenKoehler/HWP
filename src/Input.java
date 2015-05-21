@@ -51,23 +51,10 @@ public class Input {
 		// from Mem
 		werteListe.add(new KeyValue("),", 1 << 13));
 
-		// Rx einzel
-		rxEinzelListe.add(new KeyValue("R0", 0 << 4));
-		rxEinzelListe.add(new KeyValue("R1", 1 << 4));
-		rxEinzelListe.add(new KeyValue("R2", 2 << 4));
-		rxEinzelListe.add(new KeyValue("R3", 3 << 4));
-		rxEinzelListe.add(new KeyValue("R4", 4 << 4));
-		rxEinzelListe.add(new KeyValue("R5", 5 << 4));
-		rxEinzelListe.add(new KeyValue("R6", 6 << 4));
-		rxEinzelListe.add(new KeyValue("R7", 7 << 4));
-		rxEinzelListe.add(new KeyValue("R8", 8 << 4));
-		rxEinzelListe.add(new KeyValue("R9", 9 << 4));
-		rxEinzelListe.add(new KeyValue("R10", 10 << 4));
-		rxEinzelListe.add(new KeyValue("R11", 11 << 4));
-		rxEinzelListe.add(new KeyValue("R12", 12 << 4));
-		rxEinzelListe.add(new KeyValue("R13", 13 << 4));
-		rxEinzelListe.add(new KeyValue("R14", 14 << 4));
-		rxEinzelListe.add(new KeyValue("R15", 15 << 4));
+		// ADD RX einzel
+		for (int i = 0; i < 16; i++) {
+			rxEinzelListe.add(new KeyValue("R" + i, i << 4));
+		}
 	}
 
 	private static int sucheBefehl(String befehlsZeile) {
