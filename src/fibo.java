@@ -1,11 +1,9 @@
-
 public class fibo {
 
 	public static void main(String[] args) {
 
 		int i = 20;
 		int a[] = new int[20];
-
 		a[0] = fibos(i);
 		System.out.println(a[0]);
 

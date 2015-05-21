@@ -6,190 +6,125 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-
-
-
 public class Input {
 
-	
-	
-	static List<Value> befehlsliste = new LinkedList();
-	static List<Value> werteliste = new LinkedList();
-	static List<Value> wertelistesolo = new LinkedList();
-	
-	public static void fillList(){
-		befehlsliste.add(new Value("NOP", 0));
-		befehlsliste.add(new Value("LOAD", 1));
-		befehlsliste.add(new Value("MOVE", 2));
-		befehlsliste.add(new Value("ADD", 3));
-		befehlsliste.add(new Value("SUB", 4));
-		befehlsliste.add(new Value("MUL", 5));
-		befehlsliste.add(new Value("DIV", 6));
-		befehlsliste.add(new Value("PUSH", 7));
-		befehlsliste.add(new Value("POP", 8));
-		befehlsliste.add(new Value("JMP", 9));
-		befehlsliste.add(new Value("JIZ", 10));
-		befehlsliste.add(new Value("JIH", 11));
-		befehlsliste.add(new Value("JSR", 12));
-		befehlsliste.add(new Value("RTS", 13));
-		
-		werteliste.add(new Value("R0,", 0 << 4));
-		werteliste.add(new Value("R1,", 1 << 4));
-		werteliste.add(new Value("R2,", 2 << 4));
-		werteliste.add(new Value("R3,", 3 << 4));
-		werteliste.add(new Value("R4,", 4 << 4));
-		werteliste.add(new Value("R5,", 5 << 4));
-		werteliste.add(new Value("R6,", 6 << 4));
-		werteliste.add(new Value("R7,", 7 << 4));
-		werteliste.add(new Value("R8,", 8 << 4));
-		werteliste.add(new Value("R9,", 9 << 4));
-		werteliste.add(new Value("R10,", 10 << 4));
-		werteliste.add(new Value("R11,", 11 << 4));
-		werteliste.add(new Value("R12,", 12 << 4));
-		werteliste.add(new Value("R13,", 13 << 4));
-		werteliste.add(new Value("R14,", 14 << 4));
-		werteliste.add(new Value("R15,", 15 << 4));
-		
-		werteliste.add(new Value("(R0),", 0 << 4));
-		werteliste.add(new Value("(R1),", 1 << 4));
-		werteliste.add(new Value("(R2),", 2 << 4));
-		werteliste.add(new Value("(R3),", 3 << 4));
-		werteliste.add(new Value("(R4),", 4 << 4));
-		werteliste.add(new Value("(R5),", 5 << 4));
-		werteliste.add(new Value("(R6),", 6 << 4));
-		werteliste.add(new Value("(R7),", 7 << 4));
-		werteliste.add(new Value("(R8),", 8 << 4));
-		werteliste.add(new Value("(R9),", 9 << 4));
-		werteliste.add(new Value("(R10),", 10 << 4));
-		werteliste.add(new Value("(R11),", 11 << 4));
-		werteliste.add(new Value("(R12),", 12 << 4));
-		werteliste.add(new Value("(R13),", 13 << 4));
-		werteliste.add(new Value("(R14),", 14 << 4));
-		werteliste.add(new Value("(R15),", 15 << 4));
-		
-		//Rx alleine
-		wertelistesolo.add(new Value("R0", 0 << 4));
-		wertelistesolo.add(new Value("R1", 1 << 4));
-		wertelistesolo.add(new Value("R2", 2 << 4));
-		wertelistesolo.add(new Value("R3", 3 << 4));
-		wertelistesolo.add(new Value("R4", 4 << 4));
-		wertelistesolo.add(new Value("R5", 5 << 4));
-		wertelistesolo.add(new Value("R6", 6 << 4));
-		wertelistesolo.add(new Value("R7", 7 << 4));
-		wertelistesolo.add(new Value("R8", 8 << 4));
-		wertelistesolo.add(new Value("R9", 9 << 4));
-		wertelistesolo.add(new Value("R10", 10 << 4));
-		wertelistesolo.add(new Value("R11", 11 << 4));
-		wertelistesolo.add(new Value("R12", 12 << 4));
-		wertelistesolo.add(new Value("R13", 13 << 4));
-		wertelistesolo.add(new Value("R14", 14 << 4));
-		wertelistesolo.add(new Value("R15", 15 << 4));
-		
-		//Ry nach dem Komma
-		werteliste.add(new Value(",R0", 0 << 8));
-		werteliste.add(new Value(",R1", 1 << 8));
-		werteliste.add(new Value(",R2", 2 << 8));
-		werteliste.add(new Value(",R3", 3 << 8));
-		werteliste.add(new Value(",R4", 4 << 8));
-		werteliste.add(new Value(",R5", 5 << 8));
-		werteliste.add(new Value(",R6", 6 << 8));
-		werteliste.add(new Value(",R7", 7 << 8));
-		werteliste.add(new Value(",R8", 8 << 8));
-		werteliste.add(new Value(",R9", 9 << 8));
-		werteliste.add(new Value(",R10", 10 << 8));
-		werteliste.add(new Value(",R11", 11 << 8));
-		werteliste.add(new Value(",R12", 12 << 8));
-		werteliste.add(new Value(",R13", 13 << 8));
-		werteliste.add(new Value(",R14", 14 << 8));
-		werteliste.add(new Value(",R15", 15 << 8));
-		
-		werteliste.add(new Value(",(R0)", 0 << 8));
-		werteliste.add(new Value(",(R1)", 1 << 8));
-		werteliste.add(new Value(",(R2)", 2 << 8));
-		werteliste.add(new Value(",(R3)", 3 << 8));
-		werteliste.add(new Value(",(R4)", 4 << 8));
-		werteliste.add(new Value(",(R5)", 5 << 8));
-		werteliste.add(new Value(",(R6)", 6 << 8));
-		werteliste.add(new Value(",(R7)", 7 << 8));
-		werteliste.add(new Value(",(R8)", 8 << 8));
-		werteliste.add(new Value(",(R9)", 9 << 8));
-		werteliste.add(new Value(",(R10)", 10 << 8));
-		werteliste.add(new Value(",(R11)", 11 << 8));
-		werteliste.add(new Value(",(R12)", 12 << 8));
-		werteliste.add(new Value(",(R13)", 13 << 8));
-		werteliste.add(new Value(",(R14)", 14 << 8));
-		werteliste.add(new Value(",(R15)", 15 << 8));
-		
-		
-		//to Mem
-		werteliste.add(new Value(",(", 1 << 12));
-		//from Mem
-		werteliste.add(new Value("),", 1 << 13));
-		
-		
-		
+	static List<KeyValue> befehlsListe = new LinkedList();
+	static List<KeyValue> werteListe = new LinkedList();
+	static List<KeyValue> rxEinzelListe = new LinkedList();
+
+	public static void fillList() {
+		befehlsListe.add(new KeyValue("NOP", 0));
+		befehlsListe.add(new KeyValue("LOAD", 1));
+		befehlsListe.add(new KeyValue("MOVE", 2));
+		befehlsListe.add(new KeyValue("ADD", 3));
+		befehlsListe.add(new KeyValue("SUB", 4));
+		befehlsListe.add(new KeyValue("MUL", 5));
+		befehlsListe.add(new KeyValue("DIV", 6));
+		befehlsListe.add(new KeyValue("PUSH", 7));
+		befehlsListe.add(new KeyValue("POP", 8));
+		befehlsListe.add(new KeyValue("JMP", 9));
+		befehlsListe.add(new KeyValue("JIZ", 10));
+		befehlsListe.add(new KeyValue("JIH", 11));
+		befehlsListe.add(new KeyValue("JSR", 12));
+		befehlsListe.add(new KeyValue("RTS", 13));
+
+		// ADD RX,
+		for (int i = 0; i < 16; i++) {
+			werteListe.add(new KeyValue(("R" + i + ","), i << 4));
+		}
+		// ADD (RX),
+		for (int i = 0; i < 16; i++) {
+			werteListe.add(new KeyValue("(R" + i + "),", i << 4));
+		}
+		// ADD ,RY
+		for (int i = 0; i < 16; i++) {
+			werteListe.add(new KeyValue((",R" + i), i << 8));
+		}
+
+		// ADD ,(RY)
+		for (int i = 0; i < 16; i++) {
+			werteListe.add(new KeyValue(",(R" + i + ")", i << 8));
+		}
+
+		// to Mem
+		werteListe.add(new KeyValue(",(", 1 << 12));
+		// from Mem
+		werteListe.add(new KeyValue("),", 1 << 13));
+
+		// Rx einzel
+		rxEinzelListe.add(new KeyValue("R0", 0 << 4));
+		rxEinzelListe.add(new KeyValue("R1", 1 << 4));
+		rxEinzelListe.add(new KeyValue("R2", 2 << 4));
+		rxEinzelListe.add(new KeyValue("R3", 3 << 4));
+		rxEinzelListe.add(new KeyValue("R4", 4 << 4));
+		rxEinzelListe.add(new KeyValue("R5", 5 << 4));
+		rxEinzelListe.add(new KeyValue("R6", 6 << 4));
+		rxEinzelListe.add(new KeyValue("R7", 7 << 4));
+		rxEinzelListe.add(new KeyValue("R8", 8 << 4));
+		rxEinzelListe.add(new KeyValue("R9", 9 << 4));
+		rxEinzelListe.add(new KeyValue("R10", 10 << 4));
+		rxEinzelListe.add(new KeyValue("R11", 11 << 4));
+		rxEinzelListe.add(new KeyValue("R12", 12 << 4));
+		rxEinzelListe.add(new KeyValue("R13", 13 << 4));
+		rxEinzelListe.add(new KeyValue("R14", 14 << 4));
+		rxEinzelListe.add(new KeyValue("R15", 15 << 4));
 	}
-	
-	
-	private static int leseBefehl(String befehlsZeile){
-		for (Value value : befehlsliste) {
-			if(befehlsZeile.contains(value.getBefehl())){
-				return value.getWert(); 
+
+	private static int sucheBefehl(String befehlsZeile) {
+		for (KeyValue value : befehlsListe) {
+			if (befehlsZeile.contains(value.getBefehl())) {
+				return value.getWert();
 			}
 		}
 		return -1;
 	}
-	
-	private static int leseWert(String befehlsZeile){
+
+	private static int sucheWerte(String befehlsZeile) {
 		int toReturn = 0;
-		for (Value value : werteliste) {
-			if(befehlsZeile.contains(value.getBefehl())){
-				System.out.println(value.getBefehl());
-				toReturn += value.getWert(); 
-				System.out.println(toReturn);
-			}
-		}
-		return toReturn;
-	}
-	
-	private static int leseWertsolo(String befehlsZeile){
-		int toReturn = 0;
-		for (Value value : wertelistesolo) {
-			if(befehlsZeile.contains(value.getBefehl())){
-				toReturn += value.getWert(); 
+		for (KeyValue value : werteListe) {
+			if (befehlsZeile.contains(value.getBefehl())) {
+				toReturn += value.getWert();
 			}
 		}
 		return toReturn;
 	}
 
-	public static int leseBefehlsZeile(String befehlsZeile){
-		int toReturn = leseBefehl(befehlsZeile);
-		if (toReturn == 1 || (toReturn >= 9 && toReturn <= 12)){
-			String [] split = befehlsZeile.split(" ");
-			toReturn += (Integer.parseInt(split[1]) << 4);
-		}else{
-			if(toReturn == 7 || toReturn == 8){
-				toReturn += leseWertsolo(befehlsZeile);
-			}else{
-				toReturn += leseWert(befehlsZeile);
+	private static int sucheRxEinzelwert(String befehlsZeile) {
+		int toReturn = 0;
+		for (KeyValue value : rxEinzelListe) {
+			if (befehlsZeile.contains(value.getBefehl())) {
+				toReturn += value.getWert();
 			}
 		}
-		
 		return toReturn;
 	}
-	
-	public static String [] leseDatei(String pfad){
-		try{
-		BufferedReader in = new BufferedReader(new FileReader(pfad));
-		String [] daten = new String[4096];
-		int flag = 0;
-		while((daten[flag] = in.readLine()) != null){
-			flag ++;
+
+	public static int leseBefehlsZeile(String befehlsZeile) {
+		int toReturn = sucheBefehl(befehlsZeile);
+		if (toReturn == 1 || (toReturn >= 9 && toReturn <= 12)) {
+			String[] split = befehlsZeile.split(" ");
+			toReturn += (Integer.parseInt(split[1]) << 4);
+		} else {
+			if (toReturn == 7 || toReturn == 8) {
+				toReturn += sucheRxEinzelwert(befehlsZeile);
+			} else {
+				toReturn += sucheWerte(befehlsZeile);
+			}
 		}
-		in.close();
-		return daten;
-		}catch(IOException e) {
-			
+		return toReturn;
+	}
+
+	public static String[] leseDatei(String pfad) {
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(pfad));
+			String[] daten = new String[4096];
+			int flag = 0;
+			while ((daten[flag] = in.readLine()) != null) {
+				flag++;
+			}
+			in.close();
+			return daten;
+		} catch (IOException e) {
 		}
 		return null;
 	}

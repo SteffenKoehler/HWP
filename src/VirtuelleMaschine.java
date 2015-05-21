@@ -12,9 +12,10 @@ public class VirtuelleMaschine {
 	int jmpStack[] = new int[20];
 	int jmpPointer = 0;
 
-	public void druck() {
+	public void druckeRegister() {
+		System.out.println("\nMaschienenregister:");
 		for (int i = 0; i < 16; i++) {
-			System.out.println(reg[i]);
+			System.out.println("R" + i + "(" + reg[i] + ")");
 		}
 	}
 
@@ -24,7 +25,7 @@ public class VirtuelleMaschine {
 			int wert = mem[progCnt] >> 4;
 			int idx = (mem[progCnt] >> 4) & 15;
 			int idy = (mem[progCnt] >> 8) & 15;
-			int frommem = (mem[progCnt] >> 12) & 15;
+			int frommem = (mem[progCnt] >> 12) & 13;
 			int tomem = (mem[progCnt] >> 13) & 15;
 
 			switch (Befehl.values()[cmd]) {
@@ -35,18 +36,20 @@ public class VirtuelleMaschine {
 			}
 
 			case ADD: {
-				System.out.print("ADD: R"+ idx + "(" + reg[idx] + ")" + " + " + "R" + idy + "(" + reg[idy] + ")");
+				System.out.print("ADD: R" + idx + "(" + reg[idx] + ")" + " + "
+						+ "R" + idy + "(" + reg[idy] + ")");
 				reg[idx] += reg[idy];
 				progCnt++;
-				System.out.println(" = R"+ idx + "(" + reg[idx] + ")" );
+				System.out.println(" = R" + idx + "(" + reg[idx] + ")");
 				break;
 			}
 
 			case DIV: {
-				System.out.print("DIV: R"+ idx + "(" + reg[idx] + ")" + " / " + "R" + idy + "(" + reg[idy] + ")");
+				System.out.print("DIV: R" + idx + "(" + reg[idx] + ")" + " / "
+						+ "R" + idy + "(" + reg[idy] + ")");
 				reg[idx] /= reg[idy];
 				progCnt++;
-				System.out.println(" = R"+ idx + "(" + reg[idx] + ")" );
+				System.out.println(" = R" + idx + "(" + reg[idx] + ")");
 				break;
 			}
 
@@ -73,7 +76,8 @@ public class VirtuelleMaschine {
 			}
 
 			case JSR: {
-				System.out.println("JSR: jmpStack[jmpPointer]: " + jmpStack[jmpPointer]);
+				System.out.println("JSR: jmpStack[jmpPointer]: "
+						+ jmpStack[jmpPointer]);
 				jmpStack[jmpPointer] = progCnt;
 				jmpPointer++;
 				progCnt = wert;
@@ -89,54 +93,61 @@ public class VirtuelleMaschine {
 
 			case MOV: {
 				if (tomem == 1 && frommem == 1) {
-					System.out.println(frommem + " " + tomem);
-					System.out.print("MOVE: MEM" + reg[idy] + "(" + mem[reg[idy]] + ")" + " -> MEM"+ reg[idx] + "(" + mem[reg[idx]] + ")");
+					System.out.print("MOVE: MEM" + reg[idy] + "("
+							+ mem[reg[idy]] + ")" + " -> MEM" + reg[idx] + "("
+							+ mem[reg[idx]] + ")");
 					mem[reg[idx]] = mem[reg[idy]];
-					System.out.println("MemX: " + mem[reg[idx]] + " MemY: "
-							+ mem[reg[idy]]);
+					System.out.println(" = MEM" + reg[idx] + "("
+							+ mem[reg[idx]] + ")");
 					progCnt++;
 				} else if (tomem == 1) {
-					System.out.println(frommem + " " + tomem);
-					System.out.print("MOVE: R" + idy + "(" + reg[idy] + ")" + " -> MEM"+ reg[idx] + "(" + mem[reg[idx]] + ")");
+					System.out.print("MOVE: R" + idy + "(" + reg[idy] + ")"
+							+ " -> MEM" + reg[idx] + "(" + mem[reg[idx]] + ")");
 					mem[reg[idx]] = reg[idy];
-					System.out.println(" = MEM" + reg[idx] + "(" + mem[reg[idx]] + ")");
+					System.out.println(" = MEM" + reg[idx] + "("
+							+ mem[reg[idx]] + ")");
 					progCnt++;
 				} else if (frommem == 1) {
-					System.out.println(frommem + " " + tomem);
-					System.out.print("MOVE: MEM" + reg[idy] + "(" + mem[reg[idy]] + ")" + " -> R"+ idx + "(" + reg[idx] + ")");
+					System.out.print("MOVE: MEM" + reg[idy] + "("
+							+ mem[reg[idy]] + ")" + " -> R" + idx + "("
+							+ reg[idx] + ")");
 					reg[idx] = mem[reg[idy]];
 					System.out.println(" = R" + idx + "(" + reg[idx] + ")");
 					progCnt++;
 				} else {
-					System.out.println(frommem + " " + tomem);
-					System.out.print("MOVE: R" + idy + "(" + reg[idy] + ")" + " -> R"+ idx + "(" + reg[idx] + ")");
+					System.out.print("MOVE: R" + idy + "(" + reg[idy] + ")"
+							+ " -> R" + idx + "(" + reg[idx] + ")");
 					reg[idx] = reg[idy];
-					System.out.println(" = R" + idx + "("  + reg[idx] + ")");
+					System.out.println(" = R" + idx + "(" + reg[idx] + ")");
 					progCnt++;
 				}
 				break;
 			}
 
 			case MUL: {
+				System.out.print("MUL: R" + idx + "(" + reg[idx] + ")" + " * "
+						+ "R" + idy + "(" + reg[idy] + ")");
 				reg[idx] *= reg[idy];
 				progCnt++;
-				System.out.println(reg[idx]);
+				System.out.println(" = R" + idx + "(" + reg[idx] + ")");
 				break;
 			}
 
 			case POP: {
-				System.out.println("pop1:" + varStack[varPointer - 1]);
+				System.out.print("POP: R" + idx + "(" + reg[idx] + ")");
 				reg[idx] = varStack[--varPointer];
-				System.out.println("pop2:" + varStack[varPointer]);
+				System.out.print(" von Position: " + varPointer);
+				System.out.println(" -> Pointer: " + varPointer);
 				progCnt++;
 				break;
 			}
 
 			case PUSH: {
-				System.out.println("push1:" + varStack[varPointer]);
+				System.out.print("PUSH: R" + idx + "(" + reg[idx] + ")");
 				varStack[varPointer] = reg[idx];
-				System.out.println("push2:" + varStack[varPointer]);
+				System.out.print(" auf Position: " + varPointer);
 				varPointer++;
+				System.out.println(" -> Pointer: " + varPointer);
 				progCnt++;
 				break;
 			}
@@ -144,6 +155,7 @@ public class VirtuelleMaschine {
 			case RTS: {
 				if (jmpPointer == 0) {
 					progCnt = 4096;
+					System.out.println("PROGRAMMENDE");
 				} else {
 					progCnt = jmpStack[--jmpPointer] + 1;
 				}
@@ -151,9 +163,11 @@ public class VirtuelleMaschine {
 			}
 
 			case SUB: {
+				System.out.print("SUB: R" + idx + "(" + reg[idx] + ")" + " - "
+						+ "R" + idy + "(" + reg[idy] + ")");
 				reg[idx] -= reg[idy];
 				progCnt++;
-				System.out.println(reg[idx]);
+				System.out.println(" = R" + idx + "(" + reg[idx] + ")");
 				break;
 			}
 
@@ -161,10 +175,7 @@ public class VirtuelleMaschine {
 				progCnt++;
 				break;
 			}
-
 			}
-
 		}
 	}
-
 }
