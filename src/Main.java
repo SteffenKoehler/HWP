@@ -39,7 +39,7 @@ public class Main {
 
 		
 		Input.fillList();
-		String [] daten = Input.leseDatei("C:\\Users\\Steffen\\Desktop\\test.txt");
+		String [] daten = Input.leseDatei("D:\\Eigene Dokumente\\Studium\\GitHub\\HWP\\src\\Hauptprogramm.txt");
 		int i = 0;
 		for (String string : daten) {
 			if(string == null){
@@ -52,8 +52,40 @@ public class Main {
 		System.out.println(mem[0]);
 		System.out.println(mem[1]);
 		System.out.println(mem[2]);
-		meineMaschine.druck();
+		System.out.println(mem[3]);
+		System.out.println(mem[4]);
+		System.out.println(mem[5]);
+		System.out.println(mem[6]);
+		System.out.println(mem[7]);
+		System.out.println(mem[8]);
+		System.out.println(mem[9]);
+		System.out.println(mem[10]);
+		System.out.println(mem[11]);
+		System.out.println(mem[12]);
+		System.out.println(mem[13]);
+		System.out.println(mem[14]);
+		System.out.println(mem[15]);
+		System.out.println(mem[16]);
+//		meineMaschine.druck();
 		meineMaschine.ausführen();
+//		meineMaschine.druck();
+		int x = 0;
+		x += (2);
+		x += (5<<4);
+		System.out.println(x);
+		x += (3<<8);
+		System.out.println(x);
+		x += (1<<12);
+		System.out.println(x);
+		x += (1<<13);
+		System.out.println(x);
+		System.out.println(x & 15);
+		System.out.println("rx " + ((x >> 4) & 15));
+		System.out.println("ry " + ((x >> 8) & 15));
+		System.out.println("from " + ((x >> 12) & 15));
+		System.out.println("to " + ((x >> 13) & 15));
+		
+		
 	}
 
 }

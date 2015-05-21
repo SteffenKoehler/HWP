@@ -50,6 +50,23 @@ public class Input {
 		werteliste.add(new Value("R14,", 14 << 4));
 		werteliste.add(new Value("R15,", 15 << 4));
 		
+		werteliste.add(new Value("(R0),", 0 << 4));
+		werteliste.add(new Value("(R1),", 1 << 4));
+		werteliste.add(new Value("(R2),", 2 << 4));
+		werteliste.add(new Value("(R3),", 3 << 4));
+		werteliste.add(new Value("(R4),", 4 << 4));
+		werteliste.add(new Value("(R5),", 5 << 4));
+		werteliste.add(new Value("(R6),", 6 << 4));
+		werteliste.add(new Value("(R7),", 7 << 4));
+		werteliste.add(new Value("(R8),", 8 << 4));
+		werteliste.add(new Value("(R9),", 9 << 4));
+		werteliste.add(new Value("(R10),", 10 << 4));
+		werteliste.add(new Value("(R11),", 11 << 4));
+		werteliste.add(new Value("(R12),", 12 << 4));
+		werteliste.add(new Value("(R13),", 13 << 4));
+		werteliste.add(new Value("(R14),", 14 << 4));
+		werteliste.add(new Value("(R15),", 15 << 4));
+		
 		//Rx alleine
 		wertelistesolo.add(new Value("R0", 0 << 4));
 		wertelistesolo.add(new Value("R1", 1 << 4));
@@ -86,11 +103,31 @@ public class Input {
 		werteliste.add(new Value(",R14", 14 << 8));
 		werteliste.add(new Value(",R15", 15 << 8));
 		
-		//from Mem
-		werteliste.add(new Value("),", 1 << 13));
+		werteliste.add(new Value(",(R0)", 0 << 8));
+		werteliste.add(new Value(",(R1)", 1 << 8));
+		werteliste.add(new Value(",(R2)", 2 << 8));
+		werteliste.add(new Value(",(R3)", 3 << 8));
+		werteliste.add(new Value(",(R4)", 4 << 8));
+		werteliste.add(new Value(",(R5)", 5 << 8));
+		werteliste.add(new Value(",(R6)", 6 << 8));
+		werteliste.add(new Value(",(R7)", 7 << 8));
+		werteliste.add(new Value(",(R8)", 8 << 8));
+		werteliste.add(new Value(",(R9)", 9 << 8));
+		werteliste.add(new Value(",(R10)", 10 << 8));
+		werteliste.add(new Value(",(R11)", 11 << 8));
+		werteliste.add(new Value(",(R12)", 12 << 8));
+		werteliste.add(new Value(",(R13)", 13 << 8));
+		werteliste.add(new Value(",(R14)", 14 << 8));
+		werteliste.add(new Value(",(R15)", 15 << 8));
+		
 		
 		//to Mem
 		werteliste.add(new Value(",(", 1 << 12));
+		//from Mem
+		werteliste.add(new Value("),", 1 << 13));
+		
+		
+		
 	}
 	
 	
@@ -107,7 +144,9 @@ public class Input {
 		int toReturn = 0;
 		for (Value value : werteliste) {
 			if(befehlsZeile.contains(value.getBefehl())){
+				System.out.println(value.getBefehl());
 				toReturn += value.getWert(); 
+				System.out.println(toReturn);
 			}
 		}
 		return toReturn;
