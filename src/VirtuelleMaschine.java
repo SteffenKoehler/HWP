@@ -12,6 +12,12 @@ public class VirtuelleMaschine {
 	int varPointer = 0;
 	int jmpStack[] = new int[20];
 	int jmpPointer = 0;
+	
+	public void druck(){
+		for(int i = 0; i<16;i++){
+			System.out.println(reg[i]);
+		}
+	}
 
 	public void ausführen() {
 		while (progCnt < 4096) {
@@ -25,14 +31,14 @@ public class VirtuelleMaschine {
 			switch (Befehl.values()[cmd]) {
 			case NOP: {
 				progCnt++;
-				//System.out.println(progCnt);
+				System.out.println(progCnt);
 				break;
 			}
 			
 			case ADD:{
 				reg[idx] += reg[idy];
 				progCnt++;
-				System.out.println(reg[idx]);
+				System.out.println("ADD: " + reg[idx]);
 				break;
 			}
 			
@@ -85,14 +91,14 @@ public class VirtuelleMaschine {
 							+ mem[reg[idy]]);
 					progCnt++;
 				} else if (tomem == 1) {
-					System.out.println("MemX: " + mem[reg[idx]] + " RegY: "
+					System.out.println("tomem:  MemX: " + mem[reg[idx]] + " RegY: "
 							+ reg[idy]);
 					mem[reg[idx]] = reg[idy];
 					System.out.println("MemX: " + mem[reg[idx]] + " RegY: "
 							+ reg[idy]);
 					progCnt++;
 				} else if (frommem == 1) {
-					System.out.println("RegX: " + reg[idx] + " MemY: "
+					System.out.println("frommem: RegX: " + reg[idx] + " MemY: "
 							+ mem[reg[idy]]);
 					reg[idx] = mem[reg[idy]];
 					System.out.println("RegX: " + reg[idx] + " MemY: "
@@ -117,13 +123,17 @@ public class VirtuelleMaschine {
 			}
 			
 			case POP:{
+				System.out.println("pop1:" + varStack[varPointer-1]);
 				reg[idx] = varStack[--varPointer];
+				System.out.println("pop2:" + varStack[varPointer]);
 				progCnt++;
 				break;
 			}
 			
 			case PUSH:{
+				System.out.println("push1:" + varStack[varPointer]);
 				varStack[varPointer] = reg[idx];
+				System.out.println("push2:" + varStack[varPointer]);
 				varPointer++;
 				progCnt++;
 				break;
