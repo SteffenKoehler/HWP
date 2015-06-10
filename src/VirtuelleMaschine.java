@@ -6,11 +6,12 @@ public class VirtuelleMaschine {
 
 	int mem[];
 	int progCnt = 0;
-	int reg[] = new int[4096];
+	int reg[] = new int[16];
 	int varStack[] = new int[20];
 	int varPointer = 0;
-	int jmpStack[] = new int[30];
+	int jmpStack[] = new int[20];
 	int jmpPointer = 0;
+	int profiler[] = new int [30];
 
 	public void druckeRegister() {
 		System.out.println("\nMaschienenregister:");
@@ -18,9 +19,24 @@ public class VirtuelleMaschine {
 			System.out.println("R" + i + "(" + reg[i] + ")");
 		}
 	}
+	
+	public void druckeProfiler() {
+		System.out.println("\nProfiler:");
+		for (int i = 0; i < profiler.length; i++) {
+			System.out.println("profiler" + i + "(" + profiler[i] + ")");
+		}
+	}
 
+	public void druckeMem() {
+		System.out.println("\nMemorie:");
+		for (int i = 1000; i < 1020; i++) {
+			System.out.println("Mem: " + i + "(" + mem[i] + ")");
+		}
+	}
+	
 	public void ausführen() {
 		while (progCnt < 4096) {
+			profiler[progCnt] += 1;
 			int cmd = mem[progCnt] & 15;
 			int wert = mem[progCnt] >> 4;
 			int idx = (mem[progCnt] >> 4) & 15;
@@ -54,10 +70,13 @@ public class VirtuelleMaschine {
 			}
 
 			case JIH: {
-				System.out.println("JIH: R0(" + reg[0] + ")" + "Wert: " + wert);
+				System.out.println("Jump to " + wert + " wenn " + reg[0] + " = 0");
 				if (reg[0] > 0) {
 					progCnt = wert;
+				}else{
+					progCnt++;
 				}
+
 				break;
 			}
 
@@ -77,7 +96,7 @@ public class VirtuelleMaschine {
 
 			case JSR: {
 				jmpStack[jmpPointer] = progCnt;
-				System.out.println("JSR: " + jmpStack[jmpPointer]);
+				System.out.println("Jump to " + wert + " speichere " + progCnt);
 				jmpPointer++;
 				progCnt = wert;
 				break;
@@ -152,12 +171,13 @@ public class VirtuelleMaschine {
 			}
 
 			case RTS: {
-				System.out.println("RTS: " + jmpPointer);
+				
 				if (jmpPointer == 0) {
 					progCnt = 4096;
 					System.out.println("PROGRAMMENDE");
 				} else {
 					progCnt = jmpStack[--jmpPointer] + 1;
+					System.out.println("Return to " + (jmpStack[jmpPointer]+1) + " Stack verringert auf " + jmpPointer);
 				}
 				break;
 			}
