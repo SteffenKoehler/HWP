@@ -11,6 +11,7 @@ public class Input {
 	static List<KeyValue> befehlsListe = new LinkedList();
 	static List<KeyValue> werteListe = new LinkedList();
 	static List<KeyValue> rxEinzelListe = new LinkedList();
+	static List<KeyValue> memListe = new LinkedList();
 
 	public static void fillList() {
 		befehlsListe.add(new KeyValue("NOP", 0));
@@ -29,27 +30,27 @@ public class Input {
 		befehlsListe.add(new KeyValue("RTS", 13));
 
 		// ADD RX,
-		for (int i = 0; i < 16; i++) {
+		for (int i = 15; i >= 0; i--) {
 			werteListe.add(new KeyValue(("R" + i + ","), i << 4));
 		}
 		// ADD (RX),
-		for (int i = 0; i < 16; i++) {
+		for (int i = 15; i >= 0; i--) {
 			werteListe.add(new KeyValue("(R" + i + "),", i << 4));
 		}
 		// ADD ,RY
-		for (int i = 0; i < 16; i++) {
+		for (int i = 15; i >= 0; i--) {
 			werteListe.add(new KeyValue((",R" + i), i << 8));
 		}
 
 		// ADD ,(RY)
-		for (int i = 0; i < 16; i++) {
+		for (int i = 15; i >= 0; i--) {
 			werteListe.add(new KeyValue(",(R" + i + ")", i << 8));
 		}
 
 		// to Mem
-		werteListe.add(new KeyValue(",(", 1 << 12));
+		memListe.add(new KeyValue(",(", 1 << 12));
 		// from Mem
-		werteListe.add(new KeyValue("),", 1 << 13));
+		memListe.add(new KeyValue("),", 1 << 13));
 
 		// ADD RX einzel
 		for (int i = 0; i < 16; i++) {
@@ -68,11 +69,24 @@ public class Input {
 
 	private static int sucheWerte(String befehlsZeile) {
 		int toReturn = 0;
+		int count = 0;
 		for (KeyValue value : werteListe) {
 			if (befehlsZeile.contains(value.getBefehl())) {
+				System.out.println(value.getBefehl());
+				toReturn += value.getWert();
+				count++;
+			}
+			if(count == 2){
+				break;
+			}
+		}
+		for (KeyValue value :  memListe) {
+			if (befehlsZeile.contains(value.getBefehl())) {
+				System.out.println(value.getBefehl());
 				toReturn += value.getWert();
 			}
 		}
+		
 		return toReturn;
 	}
 

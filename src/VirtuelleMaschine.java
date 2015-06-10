@@ -6,15 +6,15 @@ public class VirtuelleMaschine {
 
 	int mem[];
 	int progCnt = 0;
-	int reg[] = new int[16];
+	int reg[] = new int[4096];
 	int varStack[] = new int[20];
 	int varPointer = 0;
-	int jmpStack[] = new int[20];
+	int jmpStack[] = new int[30];
 	int jmpPointer = 0;
 
 	public void druckeRegister() {
 		System.out.println("\nMaschienenregister:");
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < reg.length; i++) {
 			System.out.println("R" + i + "(" + reg[i] + ")");
 		}
 	}
@@ -76,9 +76,8 @@ public class VirtuelleMaschine {
 			}
 
 			case JSR: {
-				System.out.println("JSR: jmpStack[jmpPointer]: "
-						+ jmpStack[jmpPointer]);
 				jmpStack[jmpPointer] = progCnt;
+				System.out.println("JSR: " + jmpStack[jmpPointer]);
 				jmpPointer++;
 				progCnt = wert;
 				break;
@@ -153,6 +152,7 @@ public class VirtuelleMaschine {
 			}
 
 			case RTS: {
+				System.out.println("RTS: " + jmpPointer);
 				if (jmpPointer == 0) {
 					progCnt = 4096;
 					System.out.println("PROGRAMMENDE");
